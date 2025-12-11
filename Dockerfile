@@ -1,16 +1,11 @@
 FROM php:8.3-apache
 
-# Copy application files to Apache document root
+# Copy app files
 COPY . /var/www/html/
 
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Render requires port 10000 (not 80)
+RUN sed -i 's/80/10000/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf
 
-# Install dependencies if composer.json exists
-RUN if [ -f composer.json ]; then composer install --no-dev --optimize-autoloader; fi
+EXPOSE 10000
 
-# Expose port 80
-EXPOSE 80
-
-# Start Apache
 CMD ["apache2-foreground"]
