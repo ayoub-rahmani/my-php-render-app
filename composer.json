@@ -1,0 +1,7 @@
+{
+    "name": "myapp/php-render",
+    "description": "My first PHP app on Render",
+    "require": {
+        "php": ">=8.0"
+    }
+}
